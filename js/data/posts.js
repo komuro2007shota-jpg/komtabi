@@ -18,7 +18,7 @@ window.POSTS = [
     date: "2026.01.02",
     prefecture: "広島",
     thumbnail: "img/thumbs/setouchi.jpg",
-     tags: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"],
+    tags: ["#バイク", "#瀬戸内", "#しまなみ海道", "#島旅"],
     excerpt: "しまなみ海道と島の風景。",
     content: `
       <p>瀬戸内海は、バイク旅との相性が最高だった。</p>
