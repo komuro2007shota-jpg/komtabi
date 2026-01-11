@@ -18,12 +18,14 @@ const OFFICIAL_VISITED_PREFECTURES = Array.isArray(window.OFFICIAL_VISITED_PREFE
   const closeMenu = () => {
     btn.classList.remove("open");
     menu.classList.remove("open");
+    btn.setAttribute("aria-expanded", "false");
     document.body.style.overflow = "";
   };
 
   const openMenu = () => {
     btn.classList.add("open");
     menu.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
     document.body.style.overflow = "hidden";
   };
 
@@ -536,17 +538,16 @@ const renderTagChips = (opts) => {
     breadcrumbJsonEl.textContent = JSON.stringify(json);
   }
 
- // ===== 「一覧に戻る」導線（pref + 先頭tag で戻す）=====
-const backToList = document.getElementById("backToList");
-const backToListBottom = document.getElementById("backToListBottom");
+  // ===== 「一覧に戻る」導線（旅行記一覧へ固定）=====
+  const backToList = document.getElementById("backToList");
+  const backToListBottom = document.getElementById("backToListBottom");
 
-if (backToList || backToListBottom) {
-  const firstTag = postTags.length ? postTags[0] : "";
-  const url = buildTravelUrl(prefNorm, firstTag);
+  if (backToList || backToListBottom) {
+    const url = "travel.html";
 
-  if (backToList) backToList.href = url;
-  if (backToListBottom) backToListBottom.href = url;
-}
+    if (backToList) backToList.href = url;
+    if (backToListBottom) backToListBottom.href = url;
+  }
  
   // ===== 関連記事（共通タグが1つでもあれば候補）=====
   const relatedEl = document.getElementById("relatedPosts");
@@ -793,4 +794,3 @@ function initAdsense(root = document) {
     }
   });
 }
-
