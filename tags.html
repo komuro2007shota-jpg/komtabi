@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>#タグ | #コム旅</title>
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261016-tag-directory">
 
   
   <link rel="apple-touch-icon" href="img/favicon.png">
@@ -31,7 +31,7 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3009050769012166"
      crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="tags-page">
 
   <a href="index.html" class="logo">
     <img src="img/logo.png" alt="#コム旅 ロゴ">
@@ -94,19 +94,22 @@
 
   <main class="container">
     <h1 class="page-title">#タグ</h1>
-    <p class="lead-text">タグを選ぶと、そのタグの旅行記一覧に移動します。</p>
+    <p class="lead-text">気になる # から、次の旅を見つけよう。<br>タグを選ぶと、そのタグの旅行記一覧へ移動します。</p>
+    <div class="tag-directory-head">
+      <p class="tag-directory-label">五十音順 <span id="tagTotal"></span></p>
+      <nav class="tag-index" id="tagIndex" aria-label="タグの行へ移動"></nav>
+    </div>
 
-    <section class="tag-grid" id="tagList"></section>
+    <div class="tag-groups" id="tagList"></div>
   </main>
 
   <footer class="site-footer">
     <p>© 2026 #コム旅</p>
   </footer>
 
-<link rel="stylesheet" href="css/style.css?v=20261016" />
 <script src="js/data/posts.js?v=20260111"></script>
 <script src="js/data/courses.js?v=20260111"></script>
 <script src="js/data/visited.js?v=20260111"></script>
-<script src="js/main.js?v=20261016-pref-tags"></script>
+<script src="js/main.js?v=20261016-tag-directory"></script>
 </body>
 </html>

@@ -1302,3 +1302,34 @@ a:focus-visible, button:focus-visible {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+/* Tags: a Japanese syllabary directory */
+.tags-page { background: #f7f6f2; color: var(--travel-ink); }
+.tags-page .container { max-width: 1040px; margin: 112px auto 72px; padding: 0 28px; }
+.tags-page .page-title { font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
+.tags-page .lead-text { line-height: 1.9; color: #606c64; margin-bottom: 32px; }
+.tag-directory-head { padding: 22px 24px; border: 1px solid #dde4d8; border-radius: 16px; background: #edf1e8; margin-bottom: 36px; }
+.tag-directory-label { font-size: .9rem; font-weight: 700; margin-bottom: 14px; }
+#tagTotal { margin-left: 12px; font-size: .8rem; font-weight: 400; color: #606c64; }
+.tag-index { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag-index a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 20px; border: 1px solid #d4ddcf; border-radius: 999px; background: #fff; color: var(--travel-ink); text-decoration: none; font-size: .9rem; }
+.tag-index a:hover { background: #dfe8da; }
+.tag-groups { display: grid; gap: 32px; }
+.tag-group-title { font-size: 1.15rem; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid #dde4d8; }
+.tags-page .tag-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.tags-page .tag-card { min-height: 72px; padding: 16px 18px; border-color: #e0e6db; border-radius: 12px; transition: background .2s, border-color .2s; }
+.tags-page .tag-card:hover { background: #edf1e8; border-color: #b7c8b1; }
+.tags-page .tag-card-name { font-size: .95rem; overflow-wrap: anywhere; }
+.tags-page .tag-card-count { flex-shrink: 0; font-size: .75rem; padding: 3px 8px; border-radius: 999px; background: #f2f4ef; color: #606c64; }
+@media (max-width: 700px) {
+  .tags-page .container { margin-top: 96px; padding: 0 20px; }
+  .tags-page .tag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tags-page .tag-card { padding: 12px; gap: 6px; }
+  .tags-page .tag-card-name { font-size: .85rem; }
+  .tag-directory-head { padding: 18px; }
+  .tag-index { gap: 8px; }
+  .tag-index a { padding: 8px 16px; }
+}
+@media (max-width: 360px) {
+  .tags-page .tag-grid { grid-template-columns: 1fr; }
+}

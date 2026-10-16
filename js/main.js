@@ -778,28 +778,83 @@ if (backToList || backToListBottom) {
   const tagListEl = document.getElementById("tagList");
   if (!tagListEl) return;
 
-  const map = new Map();
-  posts.forEach((p) => {
-    if (!p || !Array.isArray(p.tags)) return;
-    p.tags.forEach((t) => {
-      const tag = normalizeTag(t);
-      if (!tag) return;
-      map.set(tag, (map.get(tag) || 0) + 1);
-    });
+  // 漢字の読みは明示し、かな・カナはそのまま五十音順に扱う。
+  // 新しい漢字タグを追加するときは、ここに読みを追加する。
+  const readings = {
+    金沢: "かなざわ", 川越: "かわごえ", 島旅: "しまたび",
+    しまなみ海道: "しまなみかいどう", 瀬戸内: "せとうち",
+    日帰り: "ひがえり", 冬: "ふゆ", 街歩き: "まちあるき",
+  };
+  const toHiragana = (value) => value.normalize("NFKC")
+    .replace(/[ァ-ヶ]/g, (char) => String.fromCharCode(char.charCodeAt(0) - 0x60));
+  const rows = [
+    ["a", "あ行", "あいうえお"], ["ka", "か行", "かきくけこ"],
+    ["sa", "さ行", "さしすせそ"], ["ta", "た行", "たちつてと"],
+    ["na", "な行", "なにぬねの"], ["ha", "は行", "はひふへほ"],
+    ["ma", "ま行", "まみむめも"], ["ya", "や行", "やゆよ"],
+    ["ra", "ら行", "らりるれろ"], ["wa", "わ行", "わをん"],
+    ["other", "その他", ""],
+  ];
+  const counts = new Map();
+  posts.forEach((post) => {
+    const tags = new Set(Array.isArray(post?.tags) ? post.tags.map(normalizeTag).filter(Boolean) : []);
+    tags.forEach((tag) => counts.set(tag, (counts.get(tag) || 0) + 1));
   });
-
-  const tags = Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0], "ja"));
-
-  tagListEl.innerHTML = tags
-    .map(([tag, count]) => {
-      return `
-        <a class="tag-card" href="travel.html?tag=${encodeURIComponent(tag)}">
-          <span class="tag-card-name">#${tag}</span>
-          <span class="tag-card-count">${count}件</span>
-        </a>
-      `;
-    })
-    .join("");
+  const tags = Array.from(counts, ([name, count]) => ({
+    name, count, reading: toHiragana(readings[name] || name),
+  })).sort((a, b) => a.reading.localeCompare(b.reading, "ja") || a.name.localeCompare(b.name, "ja"));
+  const groups = new Map(rows.map(([id]) => [id, []]));
+  tags.forEach((tag) => {
+    const initial = tag.reading.normalize("NFD")[0];
+    const row = rows.find(([, , kana]) => kana.includes(initial));
+    groups.get(row ? row[0] : "other").push(tag);
+  });
+  const totalEl = document.getElementById("tagTotal");
+  if (totalEl) totalEl.textContent = `${tags.length}タグ`;
+  const indexEl = document.getElementById("tagIndex");
+  tagListEl.replaceChildren();
+  if (indexEl) indexEl.replaceChildren();
+  if (!tags.length) {
+    const empty = document.createElement("p");
+    empty.className = "lead-text";
+    empty.textContent = "タグはまだありません。旅行記の追加をお楽しみに。";
+    tagListEl.appendChild(empty);
+  }
+  rows.forEach(([id, label]) => {
+    const groupTags = groups.get(id);
+    if (!groupTags.length) return;
+    const section = document.createElement("section");
+    section.className = "tag-group";
+    section.id = `tags-${id}`;
+    section.setAttribute("aria-labelledby", `tags-heading-${id}`);
+    const heading = document.createElement("h2");
+    heading.id = `tags-heading-${id}`;
+    heading.className = "tag-group-title";
+    heading.textContent = `#${label}`;
+    const grid = document.createElement("div");
+    grid.className = "tag-grid";
+    groupTags.forEach(({name, count}) => {
+      const link = document.createElement("a");
+      link.className = "tag-card";
+      link.href = `travel.html?tag=${encodeURIComponent(name)}`;
+      const text = document.createElement("span");
+      text.className = "tag-card-name";
+      text.textContent = `#${name}`;
+      const badge = document.createElement("span");
+      badge.className = "tag-card-count";
+      badge.textContent = `${count}件`;
+      link.append(text, badge);
+      grid.appendChild(link);
+    });
+    section.append(heading, grid);
+    tagListEl.appendChild(section);
+    if (indexEl) {
+      const link = document.createElement("a");
+      link.href = `#${section.id}`;
+      link.textContent = label;
+      indexEl.appendChild(link);
+    }
+  });
 })();
 
 function initAdsense(root = document) {
