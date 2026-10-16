@@ -91,7 +91,8 @@ const sortByDateDesc = (arr) => {
   return list.slice().sort((a, b) => toDateValue(b && b.date) - toDateValue(a && a.date));
 };
 
-const normalizeTag = (t) => (t == null ? "" : String(t).trim());
+// データや古いURLに # があっても、表示時に付ける # と重ならないようにする。
+const normalizeTag = (t) => (t == null ? "" : String(t).replace(/^[#＃\s]+/u, "").trim());
 
 const normalizePref = (name) => {
   if (!name) return "";
@@ -781,7 +782,7 @@ if (backToList || backToListBottom) {
   posts.forEach((p) => {
     if (!p || !Array.isArray(p.tags)) return;
     p.tags.forEach((t) => {
-      const tag = String(t).trim();
+      const tag = normalizeTag(t);
       if (!tag) return;
       map.set(tag, (map.get(tag) || 0) + 1);
     });
