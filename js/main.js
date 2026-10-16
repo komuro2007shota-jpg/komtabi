@@ -15,16 +15,29 @@ const OFFICIAL_VISITED_PREFECTURES = Array.isArray(window.OFFICIAL_VISITED_PREFE
   const menu = document.getElementById("menu");
   if (!btn || !menu) return;
 
+  btn.setAttribute("aria-controls", menu.id);
+  btn.setAttribute("aria-expanded", "false");
+  menu.inert = true;
+
   const closeMenu = () => {
+    const restoreFocus = menu.contains(document.activeElement);
+    menu.inert = true;
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "メニューを開く");
+    if (restoreFocus) btn.focus();
     btn.classList.remove("open");
     menu.classList.remove("open");
     document.body.style.overflow = "";
   };
 
   const openMenu = () => {
+    menu.inert = false;
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", "メニューを閉じる");
     btn.classList.add("open");
     menu.classList.add("open");
     document.body.style.overflow = "hidden";
+    menu.querySelector("a")?.focus();
   };
 
   btn.addEventListener("click", () => {
@@ -41,6 +54,13 @@ const OFFICIAL_VISITED_PREFECTURES = Array.isArray(window.OFFICIAL_VISITED_PREFE
   // ESCで閉じる
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeMenu();
+    if (e.key === "Tab" && menu.classList.contains("open")) {
+      const items = [btn, ...menu.querySelectorAll("a[href]")];
+      const index = items.indexOf(document.activeElement);
+      const next = (index + (e.shiftKey ? -1 : 1) + items.length) % items.length;
+      e.preventDefault();
+      items[next].focus();
+    }
   });
 
   // メニュー内リンクを押したら閉じる
@@ -308,7 +328,7 @@ const renderTagChips = (opts) => {
       </div>
 
       <h2 class="post-title">
-        <a href="posts/${encodeURIComponent(post.id)}.html">${post.title || ""}</a>
+        <a href="post.html?id=${encodeURIComponent(post.id)}">${post.title || ""}</a>
       </h2>
 
       <p class="post-excerpt">${post.excerpt || ""}</p>
@@ -340,6 +360,11 @@ const renderTagChips = (opts) => {
   const count = visitedUnique.length;
   const rate = Math.round((count / 47) * 100);
 
+  const progressEl = document.getElementById("visitedProgress");
+  if (progressEl) {
+    progressEl.value = count;
+    progressEl.textContent = `${count} / 47`;
+  }
   if (countEl) countEl.textContent = String(count);
   if (rateEl) rateEl.textContent = String(rate);
 

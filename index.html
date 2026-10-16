@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>#コム旅</title>
-  <link rel="stylesheet" href="css/style.css?v=20260111" />
+  <link rel="stylesheet" href="css/style.css?v=20261016" />
 
     <!-- ✅ SEO / OGP（共通） -->
   <meta name="description" content="旅と日常の記録。#コム旅の旅行記・モデルコース・47都道府県制覇の旅をまとめています。">
@@ -31,7 +31,8 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3009050769012166"
      crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="home">
+  <a class="skip-link" href="#main">本文へスキップ</a>
 
   <!-- ロゴ -->
   <a href="index.html" class="logo">
@@ -95,16 +96,20 @@
   <!-- ヒーロー -->
   <header class="hero">
     <div class="hero-inner">
+      <p class="hero-eyebrow">気になる景色の、その先へ。</p>
       <h1 class="hero-title">#コム旅</h1>
-      <p class="hero-text">旅と日常の記録</p>
+      <p class="hero-text">旅と日常の記録。<br>街を歩いて、食べて、出会った景色を残しています。</p>
+      <a class="hero-action" href="#latest">旅行記を読む <span aria-hidden="true">↓</span></a>
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
 
     <!-- 最新の旅行記 -->
-    <section>
-      <h2 class="section-title">#最新の旅行記</h2>
+    <section id="latest" aria-labelledby="latest-title">
+      <p class="section-eyebrow">TRAVEL JOURNAL</p>
+      <h2 class="section-title" id="latest-title">最新の旅行記</h2>
+      <p class="section-intro">次の旅のヒントを、旅の記録から。</p>
 
       <!-- ✅ トップは3カラムグリッド（CSSは既に用意済み） -->
       <section class="post-list post-list-grid" id="postList">
@@ -112,7 +117,7 @@
       </section>
 
       <p class="more-link">
-        <a href="travel.html">→ #旅行記をすべて見る</a>
+        <a href="travel.html">旅行記をすべて見る →</a>
       </p>
     </section>
 <section class="ad-wrap" id="ad-list-bottom" aria-label="広告">
@@ -128,7 +133,9 @@
 
     <!-- 47都道府県 制覇状況 -->
     <section class="achievement">
-      <h2 class="section-title">#47都道府県制覇の旅</h2>
+      <p class="section-eyebrow">MY JOURNEY</p>
+      <h2 class="section-title">47都道府県制覇の旅</h2>
+      <p class="section-intro">ひとつずつ、まだ知らない日本へ。</p>
 
       <p class="achievement-count">
         達成状況：<strong><span id="visitedCount">0</span> / 47</strong>
@@ -139,9 +146,7 @@
         最近の制覇：<span id="latestVisitedPref">-</span>
       </p>
 
-      <div class="achievement-map">
-        <!-- ▼ prefectures.html の <svg id="japanMap"> をここに丸ごとコピペ ▼ -->
-      </div>
+      <progress class="achievement-progress" id="visitedProgress" max="47" value="0" aria-label="訪れた都道府県の数">0 / 47</progress>
 
       <div class="achievement-chips" id="visitedChips"></div>
 
@@ -161,7 +166,7 @@
 <script src="js/data/posts.js?v=20260111"></script>
 <script src="js/data/courses.js?v=20260111"></script>
 <script src="js/data/visited.js?v=20260111"></script>
-<script src="js/main.js?v=20260111"></script>
+<script src="js/main.js?v=20261016"></script>
 
 </body>
 </html>
