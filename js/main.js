@@ -309,6 +309,12 @@ const renderTagChips = (opts) => {
 
   // 描画
   postList.innerHTML = "";
+  if (!displayPosts.length) {
+    const empty = document.createElement("p");
+    empty.className = "lead-text";
+    empty.textContent = posts.length ? "条件に合う旅行記はありません。" : "旅行記はまだありません。";
+    postList.appendChild(empty);
+  }
   displayPosts.forEach((post) => {
     const pref = normalizePref(post && post.prefecture);
     const article = document.createElement("article");
@@ -418,7 +424,7 @@ const renderTagChips = (opts) => {
   const post = sortedPosts[index];
 
   if (!post) {
-    console.warn("post not found:", postId);
+    location.replace("travel.html");
     return;
   }
 
