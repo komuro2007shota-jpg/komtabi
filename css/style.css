@@ -1335,3 +1335,43 @@ a:focus-visible, button:focus-visible {
 }
 
 .tag-group-empty { grid-column: 1 / -1; padding: 12px 0; color: #606c64; font-size: .9rem; }
+
+/* Shared footer, including article templates */
+.site-footer {
+  padding: 40px 20px 28px;
+  border-top: 1px solid #e2e6dc;
+  background: #f0f2ec;
+  color: #606c64;
+}
+.home .site-footer { padding: 40px 20px 28px; }
+.footer-brand {
+  display: inline-block;
+  color: var(--travel-ink);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+.footer-sns {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin: 20px 0 24px;
+}
+.footer-sns a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #dce2d7;
+  border-radius: 50%;
+  background: #fff;
+  color: #233e36;
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
+}
+.footer-sns svg { width: 21px; height: 21px; fill: currentColor; }
+.footer-sns a[data-sns="instagram"] { color: #c42763; }
+.footer-sns a[data-sns="youtube"] { color: #d90000; }
+.footer-sns a:hover { background: #e3eadf; border-color: #a6b59d; }
