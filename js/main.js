@@ -324,7 +324,7 @@ const renderTagChips = (opts) => {
     article.innerHTML = `
       ${thumbHtml}
       <div class="post-head">
-        <a class="post-pref" href="travel.html?pref=${encodeURIComponent(pref)}">${pref}</a>
+        <a class="post-pref" href="travel.html?pref=${encodeURIComponent(pref)}">#${pref}</a>
         <time class="post-date">${post.date || ""}</time>
       </div>
 
@@ -390,7 +390,7 @@ const renderTagChips = (opts) => {
     visitedUnique.forEach((pref) => {
       const a = document.createElement("a");
       a.href = `travel.html?pref=${encodeURIComponent(pref)}`;
-      a.textContent = pref;
+      a.textContent = `#${pref}`;
       chipsEl.appendChild(a);
     });
   }
@@ -602,7 +602,7 @@ if (backToList || backToListBottom) {
                 ${p.thumbnail ? `<img class="related-thumb" src="${p.thumbnail}" alt="${p.title || ""}" loading="lazy">` : ""}
                 <div class="related-body">
                   <div class="related-meta">
-                    ${pref ? `<span class="related-pref">${pref}</span>` : ""}
+                    ${pref ? `<span class="related-pref">#${pref}</span>` : ""}
                     <time class="related-date">${p.date || ""}</time>
                   </div>
                   <h3 class="related-post-title">${p.title || ""}</h3>
@@ -625,7 +625,7 @@ if (backToList || backToListBottom) {
       </span>
       <div class="nav-body">
         <span class="nav-label">${label}</span>
-        <span class="nav-pref">${pref}</span>
+        <span class="nav-pref">#${pref}</span>
         <span class="nav-title">${p.title || ""}</span>
       </div>
     `;
