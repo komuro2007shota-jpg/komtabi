@@ -1234,19 +1234,28 @@ a:focus-visible, button:focus-visible {
   background: linear-gradient(180deg, rgba(9,27,23,.12) 20%, rgba(9,27,23,.75) 100%);
 }
 .home .hero-inner {
-  width: 1120px; margin: 0 auto; padding: 72px 32px;
+  width: 1120px; margin: 0 auto; padding: clamp(48px, 8vh, 88px) 32px;
   text-align: left; background: none; border-radius: 0;
 }
 .hero-eyebrow { font-size: .9rem; letter-spacing: .16em; margin-bottom: 12px; }
-.home .hero-title { font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1.2; letter-spacing: .04em; }
+.home .hero-title {
+  display: flex; align-items: baseline; gap: .12em;
+  font-size: clamp(2.75rem, 5.5vw, 4.5rem); font-weight: 700;
+  line-height: 1.3; letter-spacing: .06em;
+  text-shadow: 0 2px 24px rgba(0,0,0,.28);
+}
+.hero-hash { font-size: .78em; font-weight: 500; }
 .home .hero-text { margin-top: 22px; line-height: 2; font-size: 1rem; }
 .hero-action {
-  display: inline-flex; gap: 36px; align-items: center; min-height: 48px;
-  margin-top: 28px; padding: 10px 22px; border: 1px solid rgba(255,255,255,.7);
-  border-radius: 999px; color: #fff; text-decoration: none;
-  background: rgba(255,255,255,.08);
+  display: inline-flex; gap: 24px; align-items: center; min-height: 48px;
+  margin-top: 24px; padding: 6px 8px 6px 20px; border: 1px solid rgba(255,255,255,.6);
+  border-radius: 999px; color: #fff; text-decoration: none; font-size: .9rem;
+  background: rgba(13,34,28,.35); backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .2s, border-color .2s;
 }
-.hero-action:hover { background: rgba(255,255,255,.2); }
+.hero-action:hover { background: rgba(13,34,28,.65); border-color: #fff; }
+.hero-action-arrow { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,.16); font-size: 1.1rem; }
 .section-eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .2em; color: var(--travel-accent); margin-bottom: 8px; }
 .home .section-title { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 10px; }
 .section-intro { color: #606c64; font-size: .95rem; margin-bottom: 28px; }
@@ -1288,7 +1297,7 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 700px) {
   .home .container { margin: 40px auto; padding: 0 20px; }
   .home .hero { height: 76svh; min-height: 480px; max-height: 760px; }
-  .home .hero-inner { padding: 48px 24px; }
+  .home .hero-inner { padding: 44px 24px; }
   .home .hero-text { font-size: .9rem; margin-top: 16px; }
   .hero-eyebrow { font-size: .78rem; }
   .home .post-list-grid { gap: 24px; }
