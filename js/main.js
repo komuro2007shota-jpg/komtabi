@@ -814,15 +814,9 @@ if (backToList || backToListBottom) {
   const indexEl = document.getElementById("tagIndex");
   tagListEl.replaceChildren();
   if (indexEl) indexEl.replaceChildren();
-  if (!tags.length) {
-    const empty = document.createElement("p");
-    empty.className = "lead-text";
-    empty.textContent = "タグはまだありません。旅行記の追加をお楽しみに。";
-    tagListEl.appendChild(empty);
-  }
   rows.forEach(([id, label]) => {
     const groupTags = groups.get(id);
-    if (!groupTags.length) return;
+    if (id === "other" && !groupTags.length) return;
     const section = document.createElement("section");
     section.className = "tag-group";
     section.id = `tags-${id}`;
@@ -846,6 +840,12 @@ if (backToList || backToListBottom) {
       link.append(text, badge);
       grid.appendChild(link);
     });
+    if (!groupTags.length) {
+      const empty = document.createElement("p");
+      empty.className = "tag-group-empty";
+      empty.textContent = "タグはまだありません。";
+      grid.appendChild(empty);
+    }
     section.append(heading, grid);
     tagListEl.appendChild(section);
     if (indexEl) {

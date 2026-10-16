@@ -1333,3 +1333,5 @@ a:focus-visible, button:focus-visible {
 @media (max-width: 360px) {
   .tags-page .tag-grid { grid-template-columns: 1fr; }
 }
+
+.tag-group-empty { grid-column: 1 / -1; padding: 12px 0; color: #606c64; font-size: .9rem; }
